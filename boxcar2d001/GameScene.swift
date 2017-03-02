@@ -95,6 +95,7 @@ class GameScene: SKScene {
         
           }
     
+    
     // Sets boundaries of physics simulator as edge of screen.
     
     func initEdge() {
