@@ -76,9 +76,9 @@ class GameScene: SKScene {
                 
                 initGround()
                 
-                initHUD()
+//                initHUD()
                 
-                initBackground()
+//                initBackground()
                 
                 self.lastUpdateTime = 0
             }
@@ -200,18 +200,23 @@ class GameScene: SKScene {
     
     func initGround() { //TODO: Update ground to set terrain
         
-        var splinePoints = [CGPoint(x: -350, y: 200),
-                            CGPoint(x: 0, y: 300),
-                            CGPoint(x: 100, y: 200),
-                            CGPoint(x: 4000, y: 230)]
+        var splinePoints = [CGPoint(x: -300, y: 300),
+                            CGPoint(x: 300, y: 0),
+                            CGPoint(x: 600, y: 20),
+                            CGPoint(x: 900, y: 0),
+                            CGPoint(x: 1200, y: 30),
+                            CGPoint(x: 1800, y: 0),
+                            CGPoint(x: 2000, y: -20)]
         
         let ground = SKShapeNode(splinePoints: &splinePoints, count: splinePoints.count)
         
-        ground.lineWidth = 50
+        ground.lineWidth = 15
+        
+        ground.strokeColor = .green
         
         ground.physicsBody = SKPhysicsBody(edgeChainFrom: ground.path!)
         
-        ground.physicsBody?.restitution = 0.75
+        ground.physicsBody?.restitution = 0.50
         
         ground.physicsBody?.isDynamic = false
         
@@ -256,7 +261,7 @@ class GameScene: SKScene {
         
         self.lastUpdateTime = currentTime
         
-        backWheel.physicsBody?.applyTorque(-1.0) // Acceleration code
+        backWheel.physicsBody?.applyTorque(-1.1) // Acceleration code
         
         centerOnNode(node: carBody) // makes camera follow the position of the car.
         
@@ -264,7 +269,7 @@ class GameScene: SKScene {
         
         if(carBody.position.y <= -1000) {
             
-            carBody.position = CGPoint(x: 0, y: 300)
+            carBody.position = CGPoint(x: 0, y: 400)
             
             carBody.zRotation = CGFloat.pi / 2.7
             
