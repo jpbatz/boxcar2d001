@@ -19,6 +19,8 @@
 		50A738621E62848400A93EF7 /* boxcar2d001UITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50A738611E62848400A93EF7 /* boxcar2d001UITests.swift */; };
 		50A738741E628EC900A93EF7 /* tire.png in Resources */ = {isa = PBXBuildFile; fileRef = 50A738731E628EC900A93EF7 /* tire.png */; };
 		50A738761E6297F600A93EF7 /* car.png in Resources */ = {isa = PBXBuildFile; fileRef = 50A738751E6297F600A93EF7 /* car.png */; };
+		A797C1E91E681792002FF8F0 /* art.png in Resources */ = {isa = PBXBuildFile; fileRef = A797C1E81E681792002FF8F0 /* art.png */; };
+		A7CD95931E68149000AF23B1 /* gasButton.png in Resources */ = {isa = PBXBuildFile; fileRef = A7CD95921E68149000AF23B1 /* gasButton.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -57,6 +59,8 @@
 		50A738631E62848400A93EF7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		50A738731E628EC900A93EF7 /* tire.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tire.png; sourceTree = "<group>"; };
 		50A738751E6297F600A93EF7 /* car.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = car.png; sourceTree = "<group>"; };
+		A797C1E81E681792002FF8F0 /* art.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = art.png; sourceTree = "<group>"; };
+		A7CD95921E68149000AF23B1 /* gasButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = gasButton.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -110,7 +114,9 @@
 				50A7383B1E62848300A93EF7 /* AppDelegate.swift */,
 				50A7383D1E62848300A93EF7 /* GameScene.sks */,
 				50A7383F1E62848300A93EF7 /* Actions.sks */,
+				A7CD95921E68149000AF23B1 /* gasButton.png */,
 				50A738751E6297F600A93EF7 /* car.png */,
+				A797C1E81E681792002FF8F0 /* art.png */,
 				50A738411E62848300A93EF7 /* GameScene.swift */,
 				50A738431E62848300A93EF7 /* GameViewController.swift */,
 				50A738731E628EC900A93EF7 /* tire.png */,
@@ -256,7 +262,9 @@
 				50A738491E62848300A93EF7 /* Assets.xcassets in Resources */,
 				50A7384C1E62848300A93EF7 /* LaunchScreen.storyboard in Resources */,
 				50A738401E62848300A93EF7 /* Actions.sks in Resources */,
+				A797C1E91E681792002FF8F0 /* art.png in Resources */,
 				50A738741E628EC900A93EF7 /* tire.png in Resources */,
+				A7CD95931E68149000AF23B1 /* gasButton.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -534,6 +542,7 @@
 				50A738681E62848400A93EF7 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		50A738691E62848400A93EF7 /* Build configuration list for PBXNativeTarget "boxcar2d001Tests" */ = {
 			isa = XCConfigurationList;
@@ -542,6 +551,7 @@
 				50A7386B1E62848400A93EF7 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		50A7386C1E62848400A93EF7 /* Build configuration list for PBXNativeTarget "boxcar2d001UITests" */ = {
 			isa = XCConfigurationList;
@@ -550,6 +560,7 @@
 				50A7386E1E62848400A93EF7 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

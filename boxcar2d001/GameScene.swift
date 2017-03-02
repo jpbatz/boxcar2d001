@@ -66,7 +66,7 @@ class GameScene: SKScene {
                 
                 hack_scene_loading_issue_loaded = 1 // guards and gets called only once.
                 
-                initEdge()
+//                initEdge()
                 
                 initCarBody()
                 
@@ -74,7 +74,11 @@ class GameScene: SKScene {
                 
                 initFrontWheel()
                 
-//                initGround()
+                initGround()
+                
+                initHUD()
+                
+                initBackground()
                 
                 self.lastUpdateTime = 0
             }
@@ -109,7 +113,7 @@ class GameScene: SKScene {
         
         carBody = SKSpriteNode(imageNamed: "car")
         
-        carBody.position = CGPoint(x: 0, y: 0)
+        carBody.position = CGPoint(x: 0, y: 400)
         
         carBody.physicsBody = SKPhysicsBody(texture: carBody.texture!, size: carBody.texture!.size())
         
@@ -197,9 +201,9 @@ class GameScene: SKScene {
     func initGround() { //TODO: Update ground to set terrain
         
         var splinePoints = [CGPoint(x: -350, y: 200),
-                            CGPoint(x: -100, y: -250),
-                            CGPoint(x: 100, y: 100),
-                            CGPoint(x: 240, y: 200)]
+                            CGPoint(x: 0, y: 300),
+                            CGPoint(x: 100, y: 200),
+                            CGPoint(x: 4000, y: 230)]
         
         let ground = SKShapeNode(splinePoints: &splinePoints, count: splinePoints.count)
         
@@ -212,6 +216,26 @@ class GameScene: SKScene {
         ground.physicsBody?.isDynamic = false
         
         world!.addChild(ground)
+    }
+    
+    // Creates Heads Up Display
+    
+    func initHUD() {
+        
+        let gasButton = SKSpriteNode(imageNamed: "gasButton")
+        
+        gasButton.position = CGPoint(x: 200, y: -300)
+        
+        overlay?.addChild(gasButton)
+    }
+    
+    func initBackground() {
+        
+        let backgroundImage = SKSpriteNode(imageNamed: "art")
+        
+        backgroundImage.position = CGPoint(x: 0, y: 0)
+        
+        world?.addChild(backgroundImage)
     }
     
     // Loops the game. Put your acceleration code here.
@@ -235,6 +259,21 @@ class GameScene: SKScene {
         backWheel.physicsBody?.applyTorque(-1.0) // Acceleration code
         
         centerOnNode(node: carBody) // makes camera follow the position of the car.
-
+        
+        // reset game on car falling off of ground
+        
+        if(carBody.position.y <= -1000) {
+            
+            carBody.position = CGPoint(x: 0, y: 300)
+            
+            carBody.zRotation = CGFloat.pi / 2.7
+            
+            print("game has been reset")
+        }
+    }
+    
+    func pressGas() {
+        
+        print("gas pressed.")
     }
 }
