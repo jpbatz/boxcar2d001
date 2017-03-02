@@ -74,7 +74,7 @@ class GameScene: SKScene {
                 
                 initFrontWheel()
                 
-                initGround()
+//                initGround()
                 
                 self.lastUpdateTime = 0
             }
@@ -238,6 +238,3 @@ class GameScene: SKScene {
 
     }
 }
-
-
-
