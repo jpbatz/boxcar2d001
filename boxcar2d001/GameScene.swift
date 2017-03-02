@@ -12,12 +12,11 @@ import GameplayKit
 
 class GameScene: SKScene {
     
-    
     let RedBallCategory  : UInt32 = 0x1 << 1
+    
     let GreenBallCategory: UInt32 = 0x1 << 2
     
-    var hack_scene_loading_issue_loaded = 0 // sceneDidLoad gets called twice sometimes, guards against that.
-    
+    var hack_scene_loading_issue_loaded = 0 // sceneDidLoad gets called twice sometimes, guards against
     
     var backWheel = SKSpriteNode()
     
@@ -31,32 +30,33 @@ class GameScene: SKScene {
     
     private var lastUpdateTime : TimeInterval = 0
     
-    
-    // Flag indicating whether we've setup the camera system yet.
     var isCreated: Bool = false
-    // The root node of your game world. Attach game entities
-    // (player, enemies, &c.) to here.
+    
     var world: SKNode?
-    // The root node of our UI. Attach control buttons & state
-    // indicators here.
+    
     var overlay: SKNode?
-    // The camera. Move this node to change what parts of the world are visible.
+    
     var myCamera: SKNode?
     
     override func didMove(to view: SKView) {
+        
         if !isCreated {
+            
             isCreated = true
             
-            // Camera setup
+            // World setup
+            // ~ REMEBER: Add all physics bodies to self.world ~
             self.anchorPoint = CGPoint(x: 0.5, y: 0.5)
             self.world = SKNode()
             self.world?.name = "world"
             addChild(self.world!)
+            
+            // Sets up Camera
             self.myCamera = SKNode()
             self.myCamera?.name = "camera"
             self.world?.addChild(self.myCamera!)
             
-            // UI setup
+            // Sets up Overlay HUD // NOT IMPLEMENTED
             self.overlay = SKNode()
             self.overlay?.zPosition = 10
             self.overlay?.name = "overlay"
@@ -70,31 +70,24 @@ class GameScene: SKScene {
                 
                 initCarBody()
                 
-                
                 initBackWheel()
                 
                 initFrontWheel()
                 
                 initGround()
                 
-                
-                
                 self.lastUpdateTime = 0
             }
-
         }
     }
     
-  
     func centerOnNode(node: SKNode) {
+        
         let cameraPositionInScene: CGPoint = node.scene!.convert(node.position, from: node.parent!)
         
-        node.parent?.position = CGPoint(x:(node.parent?.position.x)! - cameraPositionInScene.x, y:(node.parent?.position.y)! - cameraPositionInScene.y)
+        node.parent?.position = CGPoint(x:(node.parent?.position.x)! - cameraPositionInScene.x,
+                                        y:(node.parent?.position.y)! - cameraPositionInScene.y)
     }
-    override func sceneDidLoad() {
-        
-          }
-    
     
     // Sets boundaries of physics simulator as edge of screen.
     
@@ -104,7 +97,10 @@ class GameScene: SKScene {
         
         self.scaleMode = .aspectFit
         
-        world?.physicsBody = SKPhysicsBody(edgeLoopFrom: CGRect.init(x: -200, y: -200, width: 2000, height: (self.frame.size.height) ))
+        world?.physicsBody = SKPhysicsBody(edgeLoopFrom: CGRect.init(x: -200,
+                                                                     y: -200,
+                                                                     width: 2000,
+                                                                     height: (self.frame.size.height) ))
     }
     
     // Creates body of the car.
@@ -117,18 +113,11 @@ class GameScene: SKScene {
         
         carBody.physicsBody = SKPhysicsBody(texture: carBody.texture!, size: carBody.texture!.size())
         
-        
-        // assign phyics category
+        // assign phyics category to keep physics bodies separated
+        // so the wheel can spin independently of the car body.
         carBody.physicsBody?.categoryBitMask = RedBallCategory
-        
-        //Category is GreenBall
         carBody.physicsBody?.contactTestBitMask = RedBallCategory
-        //Contact will be detected when GreenBall make a contact with RedBar or a Wall (assuming that redBar's masks are already properly set)
         carBody.physicsBody?.collisionBitMask = RedBallCategory
-        //Collision will occur when GreenBall hits GreenBall, RedBall or hits a Wall
-        
-      
-        
         
         carBody.physicsBody?.usesPreciseCollisionDetection = true
         
@@ -143,14 +132,6 @@ class GameScene: SKScene {
         world!.addChild(carBody)
     }
     
-//    func center(onNode node: SKNode) {
-//    var cameraPosition = node.scene?.convert(node.position, from: node.parent!)
-//        
-//        myCamera.position.x = (cameraPosition?.x)!;
-//
-////        node.parent?.position = CGPoint.init(x: (node.parent?.position.x)!, y: (node.parent?.position.y)!)
-//    }
-    
     // Adds back wheel to car body.
     
     func initBackWheel() {
@@ -161,10 +142,11 @@ class GameScene: SKScene {
         
         backWheel.physicsBody = SKPhysicsBody(texture: backWheel.texture!, size: backWheel.texture!.size())
         
-        backWheel.physicsBody?.categoryBitMask = GreenBallCategory //Category is RedBall
-        backWheel.physicsBody?.contactTestBitMask = GreenBallCategory  //Contact will be detected when RedBall make a contact with GreenBar , GreenBall or a Wall
-        backWheel.physicsBody?.collisionBitMask = GreenBallCategory  //Collision will occur when RedBall meets RedBall, GreenBall or hits a Wall
-        
+        // assign phyics category to keep physics bodies separated
+        // so the wheel can spin independently of the car body.
+        backWheel.physicsBody?.categoryBitMask = GreenBallCategory
+        backWheel.physicsBody?.contactTestBitMask = GreenBallCategory
+        backWheel.physicsBody?.collisionBitMask = GreenBallCategory
         
         backWheel.physicsBody?.usesPreciseCollisionDetection = true
         
@@ -212,11 +194,11 @@ class GameScene: SKScene {
     
     // Creates course for car to race on.
     
-    func initGround() {
+    func initGround() { //TODO: Update ground to set terrain
         
         var splinePoints = [CGPoint(x: -350, y: 200),
-//                            CGPoint(x: -100, y: -250),
-//                            CGPoint(x: 100, y: 100),
+                            CGPoint(x: -100, y: -250),
+                            CGPoint(x: 100, y: 100),
                             CGPoint(x: 240, y: 200)]
         
         let ground = SKShapeNode(splinePoints: &splinePoints, count: splinePoints.count)
@@ -235,9 +217,7 @@ class GameScene: SKScene {
     // Loops the game. Put your acceleration code here.
     
     override func update(_ currentTime: TimeInterval) {
-        // Called before each frame is rendered
         
-        // Initialize _lastUpdateTime if it has not already been
         if (self.lastUpdateTime == 0) {
             self.lastUpdateTime = currentTime
         }
@@ -253,10 +233,9 @@ class GameScene: SKScene {
         self.lastUpdateTime = currentTime
         
         backWheel.physicsBody?.applyTorque(-1.0) // Acceleration code
-        centerOnNode(node: carBody)
+        
+        centerOnNode(node: carBody) // makes camera follow the position of the car.
 
-    }
-    override func didSimulatePhysics() {
     }
 }
 
