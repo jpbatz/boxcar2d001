@@ -12,11 +12,13 @@ import GameplayKit
 
 class GameScene: SKScene {
     
+    // Sets categories to keep physics separated.
+    
     let RedBallCategory  : UInt32 = 0x1 << 1
     
     let GreenBallCategory: UInt32 = 0x1 << 2
     
-    var hack_scene_loading_issue_loaded = 0 // sceneDidLoad gets called twice sometimes, guards against
+    var sceneHasLoaded = 0 // sceneDidLoad gets called twice sometimes, guards against
     
     var backWheel = SKSpriteNode()
     
@@ -62,11 +64,9 @@ class GameScene: SKScene {
             self.overlay?.name = "overlay"
             addChild(self.overlay!)
             
-            if hack_scene_loading_issue_loaded == 0 {
+            if sceneHasLoaded == 0 {
                 
-                hack_scene_loading_issue_loaded = 1 // guards and gets called only once.
-                
-//                initEdge()
+                sceneHasLoaded = 1
                 
                 initCarBody()
                 
@@ -77,6 +77,8 @@ class GameScene: SKScene {
                 initGround()
                 
                 initHUD()
+                
+//                initEdge()
                 
 //                initBackground()
                 
@@ -173,13 +175,17 @@ class GameScene: SKScene {
     
     func initFrontWheel() {
         
-        // Add category to the front wheel to go in category of rear wheel.
-        
         frontWheel = SKSpriteNode(imageNamed: "tire")
         
         frontWheel.position = CGPoint(x: 150, y: -50)
         
         frontWheel.physicsBody = SKPhysicsBody(texture: frontWheel.texture!, size: frontWheel.texture!.size())
+        
+        // assign phyics category to keep physics bodies separated
+        // so the wheel can spin independently of the car body.
+        frontWheel.physicsBody?.categoryBitMask = GreenBallCategory
+        frontWheel.physicsBody?.contactTestBitMask = GreenBallCategory
+        frontWheel.physicsBody?.collisionBitMask = GreenBallCategory
         
         frontWheel.physicsBody?.usesPreciseCollisionDetection = true
         
@@ -218,7 +224,7 @@ class GameScene: SKScene {
         
         ground.physicsBody = SKPhysicsBody(edgeChainFrom: ground.path!)
         
-        ground.physicsBody?.restitution = 0.50
+        ground.physicsBody?.restitution = 0.00
         
         ground.physicsBody?.isDynamic = false
         
@@ -271,7 +277,7 @@ class GameScene: SKScene {
         
         if(carBody.position.y <= -1000) {
             
-            //TODO: Reset physics forces on reset.
+            //TODO: Reset physics forces on carBody
             
             carBody.position = CGPoint(x: 0, y: 400)
             
@@ -280,26 +286,4 @@ class GameScene: SKScene {
             print("game has been reset")
         }
     }
-    
-    func pressGas() {
-        
-        print("gas pressed.")
-    }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
