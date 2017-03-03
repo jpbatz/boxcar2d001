@@ -441,6 +441,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = EPF99BXA3K;
 				INFOPLIST_FILE = boxcar2d001/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
@@ -455,6 +456,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = EPF99BXA3K;
 				INFOPLIST_FILE = boxcar2d001/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.2;

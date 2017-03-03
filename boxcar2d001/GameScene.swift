@@ -76,7 +76,7 @@ class GameScene: SKScene {
                 
                 initGround()
                 
-//                initHUD()
+                initHUD()
                 
 //                initBackground()
                 
@@ -172,6 +172,8 @@ class GameScene: SKScene {
     // Adds front wheel to car body.
     
     func initFrontWheel() {
+        
+        // Add category to the front wheel to go in category of rear wheel.
         
         frontWheel = SKSpriteNode(imageNamed: "tire")
         
@@ -269,6 +271,8 @@ class GameScene: SKScene {
         
         if(carBody.position.y <= -1000) {
             
+            //TODO: Reset physics forces on reset.
+            
             carBody.position = CGPoint(x: 0, y: 400)
             
             carBody.zRotation = CGFloat.pi / 2.7
@@ -282,3 +286,20 @@ class GameScene: SKScene {
         print("gas pressed.")
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
