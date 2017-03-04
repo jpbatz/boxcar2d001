@@ -12,6 +12,8 @@ import GameplayKit
 
 class GameScene: SKScene {
     
+    let randomCar = RandomCar()
+    
     // Sets categories to keep physics separated.
     
     let CarBodyCategory  : UInt32 = 0x1 << 1
@@ -72,11 +74,7 @@ class GameScene: SKScene {
                 
                 sceneHasLoaded = 1
                 
-                initCarBody()
-                
-                initBackWheel()
-                
-                initFrontWheel()
+                createRandomCar()
                 
                 initGround()
                 
@@ -88,9 +86,18 @@ class GameScene: SKScene {
                 
                 hideAllSprites()
                 
+                
+                
                 self.lastUpdateTime = 0
             }
         }
+    }
+    
+    func createRandomCar() {
+        
+        carBody = randomCar.initRandomCar()
+        
+        world!.addChild(carBody)
     }
     
     func centerOnNode(node: SKNode) {
@@ -115,34 +122,6 @@ class GameScene: SKScene {
                                                                      height: (self.frame.size.height) ))
     }
     
-    // Creates body of the car.
-    
-    func initCarBody() {
-        
-        carBody = SKSpriteNode(imageNamed: "car")
-        
-        carBody.position = CGPoint(x: 0, y: 400)
-        
-        carBody.physicsBody = SKPhysicsBody(texture: carBody.texture!, size: carBody.texture!.size())
-        
-        // assign phyics category to keep physics bodies separated
-        // so the wheel can spin independently of the car body.
-        carBody.physicsBody?.categoryBitMask = CarBodyCategory
-        carBody.physicsBody?.contactTestBitMask = CarBodyCategory
-        carBody.physicsBody?.collisionBitMask = CarBodyCategory
-        
-        carBody.physicsBody?.usesPreciseCollisionDetection = true
-        
-        carBody.physicsBody?.affectedByGravity = true
-        
-        carBody.physicsBody?.allowsRotation = true
-        
-        carBody.physicsBody?.friction = 0.5
-        
-        carBody.zRotation = CGFloat.pi / 2.7
-        
-        world!.addChild(carBody)
-    }
     
     func hideAllSprites() {
         
@@ -156,72 +135,7 @@ class GameScene: SKScene {
         
         backgroundImage.alpha = 0.0
     }
-    
-    // Adds back wheel to car body.
-    
-    func initBackWheel() {
-        
-        backWheel = SKSpriteNode(imageNamed: "tire")
-        
-        backWheel.position = CGPoint(x: -120, y: -50)
-        
-        backWheel.physicsBody = SKPhysicsBody(texture: backWheel.texture!, size: backWheel.texture!.size())
-        
-        // assign phyics category to keep physics bodies separated
-        // so the wheel can spin independently of the car body.
-        backWheel.physicsBody?.categoryBitMask = WheelCategory
-        backWheel.physicsBody?.contactTestBitMask = WheelCategory
-        backWheel.physicsBody?.collisionBitMask = WheelCategory
-        
-        backWheel.physicsBody?.usesPreciseCollisionDetection = true
-        
-        backWheel.physicsBody?.affectedByGravity = true
-        
-        backWheel.physicsBody?.allowsRotation = true
-        
-        backWheel.physicsBody?.friction = 1.0
-        
-        backWheel.physicsBody?.pinned = true
-        
-        backWheel.zRotation = CGFloat.pi / 2
-        
-        backWheel.zPosition = 1
-        
-        carBody.addChild(backWheel)
-    }
-    
-    // Adds front wheel to car body.
-    
-    func initFrontWheel() {
-        
-        frontWheel = SKSpriteNode(imageNamed: "tire")
-        
-        frontWheel.position = CGPoint(x: 150, y: -50)
-        
-        frontWheel.physicsBody = SKPhysicsBody(texture: frontWheel.texture!, size: frontWheel.texture!.size())
-        
-        // assign phyics category to keep physics bodies separated
-        // so the wheel can spin independently of the car body.
-        frontWheel.physicsBody?.categoryBitMask = WheelCategory
-        frontWheel.physicsBody?.contactTestBitMask = WheelCategory
-        frontWheel.physicsBody?.collisionBitMask = WheelCategory
-        
-        frontWheel.physicsBody?.usesPreciseCollisionDetection = true
-        
-        frontWheel.physicsBody?.affectedByGravity = true
-        
-        frontWheel.physicsBody?.allowsRotation = true
-        
-        frontWheel.physicsBody?.friction = 1.0
-        
-        frontWheel.zRotation = CGFloat.pi / 2
-        
-        frontWheel.physicsBody?.pinned = true
-        
-        frontWheel.zPosition = 1
-        
-        carBody.addChild(frontWheel)
-    }
+
     
     // Creates course for car to race on.
     
@@ -290,7 +204,7 @@ class GameScene: SKScene {
         
         self.lastUpdateTime = currentTime
         
-        backWheel.physicsBody?.applyTorque(-1.1) // Acceleration code
+        //backWheel.physicsBody?.applyTorque(-1.1) // Acceleration code
         
         centerOnNode(node: carBody) // makes camera follow the position of the car.
         

@@ -19,6 +19,7 @@
 		50A738621E62848400A93EF7 /* boxcar2d001UITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50A738611E62848400A93EF7 /* boxcar2d001UITests.swift */; };
 		50A738741E628EC900A93EF7 /* tire.png in Resources */ = {isa = PBXBuildFile; fileRef = 50A738731E628EC900A93EF7 /* tire.png */; };
 		50A738761E6297F600A93EF7 /* car.png in Resources */ = {isa = PBXBuildFile; fileRef = 50A738751E6297F600A93EF7 /* car.png */; };
+		50B7DB0E1E6B799500060200 /* RandomCar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50B7DB0D1E6B799500060200 /* RandomCar.swift */; };
 		A797C1E91E681792002FF8F0 /* art.png in Resources */ = {isa = PBXBuildFile; fileRef = A797C1E81E681792002FF8F0 /* art.png */; };
 		A7CD95931E68149000AF23B1 /* gasButton.png in Resources */ = {isa = PBXBuildFile; fileRef = A7CD95921E68149000AF23B1 /* gasButton.png */; };
 /* End PBXBuildFile section */
@@ -59,6 +60,7 @@
 		50A738631E62848400A93EF7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		50A738731E628EC900A93EF7 /* tire.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tire.png; sourceTree = "<group>"; };
 		50A738751E6297F600A93EF7 /* car.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = car.png; sourceTree = "<group>"; };
+		50B7DB0D1E6B799500060200 /* RandomCar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RandomCar.swift; sourceTree = "<group>"; };
 		A797C1E81E681792002FF8F0 /* art.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = art.png; sourceTree = "<group>"; };
 		A7CD95921E68149000AF23B1 /* gasButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = gasButton.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -118,6 +120,7 @@
 				50A738751E6297F600A93EF7 /* car.png */,
 				A797C1E81E681792002FF8F0 /* art.png */,
 				50A738411E62848300A93EF7 /* GameScene.swift */,
+				50B7DB0D1E6B799500060200 /* RandomCar.swift */,
 				50A738431E62848300A93EF7 /* GameViewController.swift */,
 				50A738731E628EC900A93EF7 /* tire.png */,
 				50A738451E62848300A93EF7 /* Main.storyboard */,
@@ -290,6 +293,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				50A738421E62848300A93EF7 /* GameScene.swift in Sources */,
+				50B7DB0E1E6B799500060200 /* RandomCar.swift in Sources */,
 				50A738441E62848300A93EF7 /* GameViewController.swift in Sources */,
 				50A7383C1E62848300A93EF7 /* AppDelegate.swift in Sources */,
 			);
