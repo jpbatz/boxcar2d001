@@ -12,6 +12,64 @@ import SpriteKit
 
 class RandomCar: SKSpriteNode {
     
+    // Sets constants for randomly generated cars
+    
+    let NUMBER_OF_SPOKES = 8
+    
+    let NUMBER_OF_WHEELS = 3
+    
+    let MAX_WHEELS = 3
+    
+    let MAX_ROTATION_ANGLE = 369
+    
+    let MAX_SPOKE_LENGTH = 100
+    
+    let MAX_TORQUE = 1.0
+    
+    
+    
+    func createRandomCarBody(inputCar: SKSpriteNode) {
+        
+        // create center of car
+        
+        inputCar.position = CGPoint(x: 0, y: 0)
+        
+        // create random rotations for spokes
+        
+        var rotations = [Int]()
+        
+        for _ in 0...NUMBER_OF_SPOKES {
+            
+            let randomInt = arc4random_uniform(UInt32(self.MAX_ROTATION_ANGLE))
+            
+            rotations.append(Int(randomInt))
+        }
+        
+        // create random spoke lengths
+        
+        var lengths = [Int]()
+        
+        for _ in 0...NUMBER_OF_SPOKES {
+            
+            let randomInt = arc4random_uniform(UInt32(self.MAX_SPOKE_LENGTH))
+            
+            lengths.append(Int(randomInt))
+        }
+        
+        // Sets a random toruqe
+        
+        let randomTorque = arc4random()
+        
+        
+        
+        
+    }
+    
+    
+    
+    
+    
+    
     
     
     let CarBodyCategory  : UInt32 = 0x1 << 1
