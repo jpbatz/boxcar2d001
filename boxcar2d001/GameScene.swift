@@ -26,6 +26,10 @@ class GameScene: SKScene {
     
     var carBody = SKSpriteNode()
     
+    var ground = SKShapeNode()
+    
+    var backgroundImage = SKSpriteNode()
+    
     var entities = [GKEntity]()
     
     var graphs = [String : GKGraph]()
@@ -80,7 +84,9 @@ class GameScene: SKScene {
                 
 //                initEdge()
                 
-//                initBackground()
+                initBackground()
+                
+                hideAllSprites()
                 
                 self.lastUpdateTime = 0
             }
@@ -136,6 +142,19 @@ class GameScene: SKScene {
         carBody.zRotation = CGFloat.pi / 2.7
         
         world!.addChild(carBody)
+    }
+    
+    func hideAllSprites() {
+        
+        carBody.alpha = 0.0
+        
+        frontWheel.alpha = 0.0
+        
+        backWheel.alpha = 0.0
+        
+        ground.alpha = 0.0
+        
+        backgroundImage.alpha = 0.0
     }
     
     // Adds back wheel to car body.
@@ -216,7 +235,7 @@ class GameScene: SKScene {
                             CGPoint(x: 1800, y: 0),
                             CGPoint(x: 2000, y: -20)]
         
-        let ground = SKShapeNode(splinePoints: &splinePoints, count: splinePoints.count)
+        ground = SKShapeNode(splinePoints: &splinePoints, count: splinePoints.count)
         
         ground.lineWidth = 15
         
@@ -242,9 +261,11 @@ class GameScene: SKScene {
         overlay?.addChild(gasButton)
     }
     
+    // Create the atmosphere of the game :)
+    
     func initBackground() {
         
-        let backgroundImage = SKSpriteNode(imageNamed: "art")
+        backgroundImage = SKSpriteNode(imageNamed: "art")
         
         backgroundImage.position = CGPoint(x: 0, y: 0)
         
@@ -273,6 +294,19 @@ class GameScene: SKScene {
         
         centerOnNode(node: carBody) // makes camera follow the position of the car.
         
+        // reset game if car is at rest
+
+        if(carBody.physicsBody?.isResting == true) {
+            
+            //TODO: Reset physics forces on carBody
+            
+            carBody.position = CGPoint(x: 0, y: 400)
+            
+            carBody.zRotation = CGFloat.pi / 2.7
+            
+            print("The game has been reset as the car was at rest.")
+        }
+        
         // reset game on car falling off of ground
         
         if(carBody.position.y <= -1000) {
@@ -283,7 +317,7 @@ class GameScene: SKScene {
             
             carBody.zRotation = CGFloat.pi / 2.7
             
-            print("game has been reset")
+            print("The game has been reset as the car has fallen off track.")
         }
     }
 }
