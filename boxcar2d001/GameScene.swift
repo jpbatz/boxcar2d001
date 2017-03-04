@@ -14,9 +14,9 @@ class GameScene: SKScene {
     
     // Sets categories to keep physics separated.
     
-    let RedBallCategory  : UInt32 = 0x1 << 1
+    let CarBodyCategory  : UInt32 = 0x1 << 1
     
-    let GreenBallCategory: UInt32 = 0x1 << 2
+    let WheelCategory: UInt32 = 0x1 << 2
     
     var sceneHasLoaded = 0 // sceneDidLoad gets called twice sometimes, guards against
     
@@ -121,9 +121,9 @@ class GameScene: SKScene {
         
         // assign phyics category to keep physics bodies separated
         // so the wheel can spin independently of the car body.
-        carBody.physicsBody?.categoryBitMask = RedBallCategory
-        carBody.physicsBody?.contactTestBitMask = RedBallCategory
-        carBody.physicsBody?.collisionBitMask = RedBallCategory
+        carBody.physicsBody?.categoryBitMask = CarBodyCategory
+        carBody.physicsBody?.contactTestBitMask = CarBodyCategory
+        carBody.physicsBody?.collisionBitMask = CarBodyCategory
         
         carBody.physicsBody?.usesPreciseCollisionDetection = true
         
@@ -150,9 +150,9 @@ class GameScene: SKScene {
         
         // assign phyics category to keep physics bodies separated
         // so the wheel can spin independently of the car body.
-        backWheel.physicsBody?.categoryBitMask = GreenBallCategory
-        backWheel.physicsBody?.contactTestBitMask = GreenBallCategory
-        backWheel.physicsBody?.collisionBitMask = GreenBallCategory
+        backWheel.physicsBody?.categoryBitMask = WheelCategory
+        backWheel.physicsBody?.contactTestBitMask = WheelCategory
+        backWheel.physicsBody?.collisionBitMask = WheelCategory
         
         backWheel.physicsBody?.usesPreciseCollisionDetection = true
         
@@ -183,9 +183,9 @@ class GameScene: SKScene {
         
         // assign phyics category to keep physics bodies separated
         // so the wheel can spin independently of the car body.
-        frontWheel.physicsBody?.categoryBitMask = GreenBallCategory
-        frontWheel.physicsBody?.contactTestBitMask = GreenBallCategory
-        frontWheel.physicsBody?.collisionBitMask = GreenBallCategory
+        frontWheel.physicsBody?.categoryBitMask = WheelCategory
+        frontWheel.physicsBody?.contactTestBitMask = WheelCategory
+        frontWheel.physicsBody?.collisionBitMask = WheelCategory
         
         frontWheel.physicsBody?.usesPreciseCollisionDetection = true
         
