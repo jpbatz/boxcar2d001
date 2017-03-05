@@ -16,11 +16,9 @@ class RandomCar: SKSpriteNode {
     
     // Sets constants for randomly generated cars
     
-    let NUMBER_OF_SPOKES = 7
+    let MAX_NUMBER_OF_SPOKES = 7
     
-    let NUMBER_OF_WHEELS = 3
-    
-    let MAX_WHEELS = 3
+    let MAX_NUMBER_OF_WHEELS = 3
     
     let MAX_WHEEL_SIZE = 100
     
@@ -44,13 +42,15 @@ class RandomCar: SKSpriteNode {
     
     var frontWheel = SKSpriteNode()
     
+    var reusableWheel = SKSpriteNode()
+    
     func createRandomCarBody() -> SKSpriteNode {
         
         // create random rotations for spokes
         
         var widths = [Int]()
         
-        for _ in 0...NUMBER_OF_SPOKES {
+        for _ in 0...MAX_NUMBER_OF_SPOKES {
             
             var randomInt = Int(arc4random_uniform(UInt32(self.MAX_SPOKE_POSITION_X)))
             
@@ -66,7 +66,7 @@ class RandomCar: SKSpriteNode {
         
         var heights = [Int]()
         
-        for _ in 0...NUMBER_OF_SPOKES {
+        for _ in 0...MAX_NUMBER_OF_SPOKES {
             
             var randomInt = Int(arc4random_uniform(UInt32(self.MAX_SPOKE_POSITION_Y)))
             
@@ -76,6 +76,17 @@ class RandomCar: SKSpriteNode {
             }
             
             heights.append(Int(randomInt))
+        }
+        
+        // create random spoke to affix wheel to
+        
+        var spokesWithWheels = [Int]()
+        
+        for _ in 0...MAX_NUMBER_OF_WHEELS {
+            
+            let randomInt = Int(arc4random_uniform(UInt32(self.MAX_NUMBER_OF_SPOKES)))
+            
+            spokesWithWheels.append(Int(randomInt))
         }
         
         // create car body with a body from a sprite
@@ -102,7 +113,7 @@ class RandomCar: SKSpriteNode {
         
         returnCar.zRotation = CGFloat.pi / 2.7
         
-        for index in 1...NUMBER_OF_SPOKES {
+        for index in 1...MAX_NUMBER_OF_SPOKES {
             
             // Create spoke point
             
@@ -130,13 +141,51 @@ class RandomCar: SKSpriteNode {
             
             spokePoint.position = CGPoint(x: widths[index], y: heights[index])
             
+            
+            // Add spoke if spoke is at index
+            
+            if spokesWithWheels.contains(index) {
+                
+                // add a wheel to this spoke
+                addWheelToSpoke(inputSpoke: spokePoint)
+            }
+            
             returnCar.addChild(spokePoint)
         }
         
         return returnCar
     }
     
-    
+    func addWheelToSpoke(inputSpoke: SKSpriteNode) {
+        
+        reusableWheel = SKSpriteNode(imageNamed: "tire")
+        
+        reusableWheel.position = CGPoint(x: 0, y: 0)
+        
+        reusableWheel.physicsBody = SKPhysicsBody(texture: reusableWheel.texture!, size: reusableWheel.texture!.size())
+        
+        // assign phyics category to keep physics bodies separated
+        // so the wheel can spin independently of the car body.
+        reusableWheel.physicsBody?.categoryBitMask = WheelCategory
+        reusableWheel.physicsBody?.contactTestBitMask = WheelCategory
+        reusableWheel.physicsBody?.collisionBitMask = WheelCategory
+        
+        reusableWheel.physicsBody?.usesPreciseCollisionDetection = true
+        
+        reusableWheel.physicsBody?.affectedByGravity = true
+        
+        reusableWheel.physicsBody?.allowsRotation = true
+        
+        reusableWheel.physicsBody?.friction = 1.0
+        
+        reusableWheel.physicsBody?.pinned = true
+        
+        reusableWheel.zRotation = CGFloat.pi / 2
+        
+        reusableWheel.zPosition = 1
+        
+        inputSpoke.addChild(reusableWheel)
+    }
     
     
     
