@@ -12,6 +12,8 @@ import SpriteKit
 
 class RandomCar: SKSpriteNode {
     
+    
+    
     // Sets constants for randomly generated cars
     
     let NUMBER_OF_SPOKES = 8
@@ -28,11 +30,19 @@ class RandomCar: SKSpriteNode {
     
     
     
-    func createRandomCarBody(inputCar: SKSpriteNode) {
-        
-        // create center of car
-        
-        inputCar.position = CGPoint(x: 0, y: 0)
+    // Physics
+    
+    let CarBodyCategory  : UInt32 = 0x1 << 1
+    
+    let WheelCategory: UInt32 = 0x1 << 2
+    
+    var returnCar = SKSpriteNode()
+    
+    var backWheel = SKSpriteNode()
+    
+    var frontWheel = SKSpriteNode()
+    
+    func createRandomCarBody() -> SKSpriteNode {
         
         // create random rotations for spokes
         
@@ -56,13 +66,66 @@ class RandomCar: SKSpriteNode {
             lengths.append(Int(randomInt))
         }
         
-        // Sets a random toruqe
+        // create car body with a body from a sprite
         
-        let randomTorque = arc4random()
+        returnCar = SKSpriteNode(imageNamed: "carBodyRandomPoint")
         
+        returnCar.position = CGPoint(x: 0, y: 400)
         
+        returnCar.physicsBody = SKPhysicsBody(texture: returnCar.texture!, size: returnCar.texture!.size())
         
+        // assign phyics category to keep physics bodies separated
+        // so the wheel can spin independently of the car body.
+        returnCar.physicsBody?.categoryBitMask = CarBodyCategory
+        returnCar.physicsBody?.contactTestBitMask = CarBodyCategory
+        returnCar.physicsBody?.collisionBitMask = CarBodyCategory
         
+        returnCar.physicsBody?.usesPreciseCollisionDetection = true
+        
+        returnCar.physicsBody?.affectedByGravity = true
+        
+        returnCar.physicsBody?.allowsRotation = true
+        
+        returnCar.physicsBody?.friction = 0.5
+        
+        returnCar.zRotation = CGFloat.pi / 2.7
+        
+        for index in 0...3 {
+            
+            // Create spoke point
+            
+            let spokePoint = SKSpriteNode.init(imageNamed: "carSpokePoint")
+            
+            spokePoint.position = CGPoint(x: 0, y: 10)
+            
+            spokePoint.physicsBody = SKPhysicsBody(texture: returnCar.texture!, size: returnCar.texture!.size())
+            
+            // assign phyics category to keep physics bodies separated
+            // so the wheel can spin independently of the car body.
+            spokePoint.physicsBody?.categoryBitMask = WheelCategory
+            spokePoint.physicsBody?.contactTestBitMask = WheelCategory
+            spokePoint.physicsBody?.collisionBitMask = WheelCategory
+            
+            spokePoint.physicsBody?.usesPreciseCollisionDetection = true
+            
+            spokePoint.physicsBody?.affectedByGravity = false
+            
+            spokePoint.physicsBody?.allowsRotation = false
+            
+            spokePoint.physicsBody?.friction = 0.5
+            
+            spokePoint.zPosition = 1
+            
+            spokePoint.physicsBody?.pinned = true
+            
+            spokePoint.zRotation = CGFloat(rotations[index])
+            
+            spokePoint.position = CGPoint(x: 0, y: lengths[index])
+            
+            returnCar.addChild(spokePoint)
+        }
+        
+        return returnCar
     }
     
     
@@ -72,16 +135,7 @@ class RandomCar: SKSpriteNode {
     
     
     
-    let CarBodyCategory  : UInt32 = 0x1 << 1
-    
-    let WheelCategory: UInt32 = 0x1 << 2
-    
-    var returnCar = SKSpriteNode()
-    
-    var backWheel = SKSpriteNode()
-    
-    var frontWheel = SKSpriteNode()
-    
+
     func initRandomCar() -> SKSpriteNode {
     
         returnCar = SKSpriteNode()
@@ -182,3 +236,7 @@ class RandomCar: SKSpriteNode {
         inputCarBody.addChild(frontWheel)
     }
 }
+
+
+
+//TODO: Set a random toruqe on wheel

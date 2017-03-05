@@ -95,7 +95,9 @@ class GameScene: SKScene {
     
     func createRandomCar() {
         
-        carBody = randomCar.initRandomCar()
+        //carBody = randomCar.initRandomCar()
+        
+        carBody = randomCar.createRandomCarBody()
         
         world!.addChild(carBody)
     }
