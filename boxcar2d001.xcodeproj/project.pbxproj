@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		50536A0A1E6B99BF003745D8 /* carBodyRandomPoint.png in Resources */ = {isa = PBXBuildFile; fileRef = 50536A091E6B99BF003745D8 /* carBodyRandomPoint.png */; };
 		50536A0C1E6B9BF0003745D8 /* carSpokePoint.png in Resources */ = {isa = PBXBuildFile; fileRef = 50536A0B1E6B9BF0003745D8 /* carSpokePoint.png */; };
+		50536A0F1E6BA7D5003745D8 /* restartButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 50536A0E1E6BA7D5003745D8 /* restartButton.png */; };
 		50A7383C1E62848300A93EF7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50A7383B1E62848300A93EF7 /* AppDelegate.swift */; };
 		50A7383E1E62848300A93EF7 /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 50A7383D1E62848300A93EF7 /* GameScene.sks */; };
 		50A738401E62848300A93EF7 /* Actions.sks in Resources */ = {isa = PBXBuildFile; fileRef = 50A7383F1E62848300A93EF7 /* Actions.sks */; };
@@ -46,6 +47,7 @@
 /* Begin PBXFileReference section */
 		50536A091E6B99BF003745D8 /* carBodyRandomPoint.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = carBodyRandomPoint.png; sourceTree = "<group>"; };
 		50536A0B1E6B9BF0003745D8 /* carSpokePoint.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = carSpokePoint.png; sourceTree = "<group>"; };
+		50536A0E1E6BA7D5003745D8 /* restartButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = restartButton.png; sourceTree = "<group>"; };
 		50A738381E62848300A93EF7 /* boxcar2d001.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = boxcar2d001.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		50A7383B1E62848300A93EF7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		50A7383D1E62848300A93EF7 /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
@@ -97,6 +99,7 @@
 		50536A0D1E6B9BFC003745D8 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				50536A0E1E6BA7D5003745D8 /* restartButton.png */,
 				A7CD95921E68149000AF23B1 /* gasButton.png */,
 				50A738751E6297F600A93EF7 /* car.png */,
 				50536A091E6B99BF003745D8 /* carBodyRandomPoint.png */,
@@ -274,6 +277,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				50A738471E62848300A93EF7 /* Main.storyboard in Resources */,
+				50536A0F1E6BA7D5003745D8 /* restartButton.png in Resources */,
 				50A7383E1E62848300A93EF7 /* GameScene.sks in Resources */,
 				50A738761E6297F600A93EF7 /* car.png in Resources */,
 				50A738491E62848300A93EF7 /* Assets.xcassets in Resources */,

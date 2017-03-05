@@ -50,7 +50,12 @@ class RandomCar: SKSpriteNode {
         
         for _ in 0...NUMBER_OF_SPOKES {
             
-            let randomInt = arc4random_uniform(UInt32(self.MAX_SPOKE_POSITION_X))
+            var randomInt = Int(arc4random_uniform(UInt32(self.MAX_SPOKE_POSITION_X)))
+            
+            if(randomInt % 2 == 0) {
+                
+                randomInt = randomInt * -1
+            }
             
             widths.append(Int(randomInt))
         }
@@ -61,7 +66,12 @@ class RandomCar: SKSpriteNode {
         
         for _ in 0...NUMBER_OF_SPOKES {
             
-            let randomInt = arc4random_uniform(UInt32(self.MAX_SPOKE_POSITION_Y))
+            var randomInt = Int(arc4random_uniform(UInt32(self.MAX_SPOKE_POSITION_Y)))
+            
+            if(randomInt % 2 == 0) {
+                
+                randomInt = randomInt * -1
+            }
             
             heights.append(Int(randomInt))
         }
@@ -132,7 +142,7 @@ class RandomCar: SKSpriteNode {
     
     
 
-    func initRandomCar() -> SKSpriteNode {
+    func initRegularCar() -> SKSpriteNode {
     
         returnCar = SKSpriteNode()
         
@@ -168,6 +178,7 @@ class RandomCar: SKSpriteNode {
     
         return returnCar
     }
+    
     // Adds back wheel to car body.
     
     func addBackWheelTo(inputCarBody: SKSpriteNode) {

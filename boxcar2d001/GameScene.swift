@@ -12,6 +12,8 @@ import GameplayKit
 
 class GameScene: SKScene {
     
+    var hudButtons = [SKSpriteNode]()
+    
     let randomCar = RandomCar()
     
     // Sets categories to keep physics separated.
@@ -93,7 +95,7 @@ class GameScene: SKScene {
     
     func createRandomCar() {
         
-        //carBody = randomCar.initRandomCar()
+        //carBody = randomCar.initRegularCar()
         
         carBody = randomCar.createRandomCarBody()
         
@@ -167,11 +169,30 @@ class GameScene: SKScene {
     
     func initHUD() {
         
+        // Create gas button
+        
         let gasButton = SKSpriteNode(imageNamed: "gasButton")
+        
+        gasButton.name = "gasButton"
         
         gasButton.position = CGPoint(x: 200, y: -300)
         
         overlay?.addChild(gasButton)
+        
+        // Creates restart button
+        
+        let restartButton = SKSpriteNode(imageNamed: "restartButton")
+        
+        restartButton.position = CGPoint(x: 100, y: -300)
+        
+        restartButton.name = "restartButton"
+        
+        overlay?.addChild(restartButton)
+        
+        hudButtons.append(gasButton)
+        
+        hudButtons.append(restartButton)
+    
     }
     
     // Create the atmosphere of the game :)
@@ -233,4 +254,41 @@ class GameScene: SKScene {
             print("The game has been reset as the car has fallen off track.")
         }
     }
+    
+    
+    
+    
+    // MARK: - Handles Touches
+    
+    /// Responds to a touch.
+    ///
+    /// :param: Set of touches and the event
+    ///
+    /// :returns: nothing
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+
+            let touch = touches.first
+            
+            let location = touch!.location(in: self)
+            
+            for sprite in hudButtons {
+                
+                if sprite.frame.contains(location) {
+                    
+                    if(sprite.name == "restartButton") {
+                        
+                        print("you touched restart button")
+                        
+                    } else {
+                        
+                        print("you touched gas button")
+                    }
+                }
+            }
+        }
 }
+
+
+
+
+
