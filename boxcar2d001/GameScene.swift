@@ -102,6 +102,12 @@ class GameScene: SKScene {
         world!.addChild(carBody)
     }
     
+    func swapNewRandomCar() {
+        
+        carBody = randomCar.createRandomCarBody()
+    }
+    
+    
     func centerOnNode(node: SKNode) {
         
         let cameraPositionInScene: CGPoint = node.scene!.convert(node.position, from: node.parent!)
@@ -226,7 +232,10 @@ class GameScene: SKScene {
         
         //backWheel.physicsBody?.applyTorque(-1.1) // Acceleration code
         
+        //TODO: Update so restart button does not crash system Y
         centerOnNode(node: carBody) // makes camera follow the position of the car.
+
+        
         
         // reset game if car is at rest
 
@@ -257,7 +266,6 @@ class GameScene: SKScene {
     
     
     
-    
     // MARK: - Handles Touches
     
     /// Responds to a touch.
@@ -277,11 +285,13 @@ class GameScene: SKScene {
                     
                     if(sprite.name == "restartButton") {
                         
-                        print("you touched restart button")
+                        print("you touched the restart button")
+                        
+                        //swapNewRandomCar()
                         
                     } else {
                         
-                        print("you touched gas button")
+                        print("you touched the gas button")
                     }
                 }
             }

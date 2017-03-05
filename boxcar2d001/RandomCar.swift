@@ -16,11 +16,13 @@ class RandomCar: SKSpriteNode {
     
     // Sets constants for randomly generated cars
     
-    let NUMBER_OF_SPOKES = 8
+    let NUMBER_OF_SPOKES = 7
     
     let NUMBER_OF_WHEELS = 3
     
     let MAX_WHEELS = 3
+    
+    let MAX_WHEEL_SIZE = 100
     
     let MAX_SPOKE_POSITION_X = 100
     
