@@ -80,13 +80,11 @@ class GameScene: SKScene {
                 
                 initHUD()
                 
-//                initEdge()
-                
                 initBackground()
                 
                 hideAllSprites()
                 
-                
+                showAllSprites()
                 
                 self.lastUpdateTime = 0
             }
@@ -110,21 +108,6 @@ class GameScene: SKScene {
                                         y:(node.parent?.position.y)! - cameraPositionInScene.y)
     }
     
-    // Sets boundaries of physics simulator as edge of screen.
-    
-    func initEdge() {
-        
-        self.backgroundColor = .black
-        
-        self.scaleMode = .aspectFit
-        
-        world?.physicsBody = SKPhysicsBody(edgeLoopFrom: CGRect.init(x: -200,
-                                                                     y: -200,
-                                                                     width: 2000,
-                                                                     height: (self.frame.size.height) ))
-    }
-    
-    
     func hideAllSprites() {
         
         carBody.alpha = 0.0
@@ -137,6 +120,20 @@ class GameScene: SKScene {
         
         backgroundImage.alpha = 0.0
     }
+    
+    func showAllSprites() {
+        
+        carBody.alpha = 1.0
+        
+        frontWheel.alpha = 0.0
+        
+        backWheel.alpha = 0.0
+        
+        ground.alpha = 0.0
+        
+        backgroundImage.alpha = 0.0
+    }
+
 
     
     // Creates course for car to race on.

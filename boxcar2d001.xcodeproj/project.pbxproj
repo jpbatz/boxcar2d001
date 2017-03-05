@@ -129,12 +129,12 @@
 		50A7383A1E62848300A93EF7 /* boxcar2d001 */ = {
 			isa = PBXGroup;
 			children = (
+				50A738411E62848300A93EF7 /* GameScene.swift */,
+				50B7DB0D1E6B799500060200 /* RandomCar.swift */,
 				50A7383B1E62848300A93EF7 /* AppDelegate.swift */,
 				50A7383D1E62848300A93EF7 /* GameScene.sks */,
 				50A7383F1E62848300A93EF7 /* Actions.sks */,
 				50536A0D1E6B9BFC003745D8 /* Images */,
-				50A738411E62848300A93EF7 /* GameScene.swift */,
-				50B7DB0D1E6B799500060200 /* RandomCar.swift */,
 				50A738431E62848300A93EF7 /* GameViewController.swift */,
 				50A738731E628EC900A93EF7 /* tire.png */,
 				50A738451E62848300A93EF7 /* Main.storyboard */,

@@ -22,9 +22,9 @@ class RandomCar: SKSpriteNode {
     
     let MAX_WHEELS = 3
     
-    let MAX_ROTATION_ANGLE = 369
+    let MAX_SPOKE_POSITION_X = 100
     
-    let MAX_SPOKE_LENGTH = 100
+    let MAX_SPOKE_POSITION_Y = 100
     
     let MAX_TORQUE = 1.0
     
@@ -46,24 +46,24 @@ class RandomCar: SKSpriteNode {
         
         // create random rotations for spokes
         
-        var rotations = [Int]()
+        var widths = [Int]()
         
         for _ in 0...NUMBER_OF_SPOKES {
             
-            let randomInt = arc4random_uniform(UInt32(self.MAX_ROTATION_ANGLE))
+            let randomInt = arc4random_uniform(UInt32(self.MAX_SPOKE_POSITION_X))
             
-            rotations.append(Int(randomInt))
+            widths.append(Int(randomInt))
         }
         
         // create random spoke lengths
         
-        var lengths = [Int]()
+        var heights = [Int]()
         
         for _ in 0...NUMBER_OF_SPOKES {
             
-            let randomInt = arc4random_uniform(UInt32(self.MAX_SPOKE_LENGTH))
+            let randomInt = arc4random_uniform(UInt32(self.MAX_SPOKE_POSITION_Y))
             
-            lengths.append(Int(randomInt))
+            heights.append(Int(randomInt))
         }
         
         // create car body with a body from a sprite
@@ -90,27 +90,25 @@ class RandomCar: SKSpriteNode {
         
         returnCar.zRotation = CGFloat.pi / 2.7
         
-        for index in 0...3 {
+        for index in 1...NUMBER_OF_SPOKES {
             
             // Create spoke point
             
             let spokePoint = SKSpriteNode.init(imageNamed: "carSpokePoint")
             
-            spokePoint.position = CGPoint(x: 0, y: 10)
-            
             spokePoint.physicsBody = SKPhysicsBody(texture: returnCar.texture!, size: returnCar.texture!.size())
             
             // assign phyics category to keep physics bodies separated
             // so the wheel can spin independently of the car body.
-            spokePoint.physicsBody?.categoryBitMask = WheelCategory
-            spokePoint.physicsBody?.contactTestBitMask = WheelCategory
-            spokePoint.physicsBody?.collisionBitMask = WheelCategory
+            spokePoint.physicsBody?.categoryBitMask = CarBodyCategory
+            spokePoint.physicsBody?.contactTestBitMask = CarBodyCategory
+            spokePoint.physicsBody?.collisionBitMask = CarBodyCategory
             
-            spokePoint.physicsBody?.usesPreciseCollisionDetection = true
+            spokePoint.physicsBody?.usesPreciseCollisionDetection = false
             
             spokePoint.physicsBody?.affectedByGravity = false
             
-            spokePoint.physicsBody?.allowsRotation = false
+            spokePoint.physicsBody?.allowsRotation = true
             
             spokePoint.physicsBody?.friction = 0.5
             
@@ -118,9 +116,7 @@ class RandomCar: SKSpriteNode {
             
             spokePoint.physicsBody?.pinned = true
             
-            spokePoint.zRotation = CGFloat(rotations[index])
-            
-            spokePoint.position = CGPoint(x: 0, y: lengths[index])
+            spokePoint.position = CGPoint(x: widths[index], y: heights[index])
             
             returnCar.addChild(spokePoint)
         }
@@ -240,3 +236,4 @@ class RandomCar: SKSpriteNode {
 
 
 //TODO: Set a random toruqe on wheel
+//TODO: Add negative ranges to height and width positions of spokes
