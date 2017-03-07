@@ -12,8 +12,6 @@ import SpriteKit
 
 class RandomCar: SKSpriteNode {
     
-    
-    
     // Sets constants for randomly generated cars
     
     let MAX_NUMBER_OF_SPOKES = 7
@@ -43,6 +41,8 @@ class RandomCar: SKSpriteNode {
     var frontWheel = SKSpriteNode()
     
     var reusableWheel = SKSpriteNode()
+    
+    var wheelWithTorque = SKSpriteNode()
     
     func createRandomCarBody() -> SKSpriteNode {
         
@@ -121,7 +121,7 @@ class RandomCar: SKSpriteNode {
             
             spokePoint.physicsBody = SKPhysicsBody(texture: returnCar.texture!, size: returnCar.texture!.size())
             
-            // assign phyics category to keep physics bodies separated
+            // Assigns phyics category to keep physics bodies separated
             // so the wheel can spin independently of the car body.
             spokePoint.physicsBody?.categoryBitMask = CarBodyCategory
             spokePoint.physicsBody?.contactTestBitMask = CarBodyCategory
@@ -143,8 +143,15 @@ class RandomCar: SKSpriteNode {
             
             
             // Add spoke if spoke is at index
+            // Create initializing flag that is set to 1 and prevents execution if called.
+            var hasWheelWithTorque = false
             
             if spokesWithWheels.contains(index) {
+                
+                if hasWheelWithTorque == false {
+                    hasWheelWithTorque = true
+                    // apply torque to wheel
+                }
                 
                 // add a wheel to this spoke
                 addWheelToSpoke(inputSpoke: spokePoint)
@@ -158,13 +165,15 @@ class RandomCar: SKSpriteNode {
     
     func addWheelToSpoke(inputSpoke: SKSpriteNode) {
         
+        reusableWheel.name = "wheel"
+        
         reusableWheel = SKSpriteNode(imageNamed: "tire")
         
         reusableWheel.position = CGPoint(x: 0, y: 0)
         
         reusableWheel.physicsBody = SKPhysicsBody(texture: reusableWheel.texture!, size: reusableWheel.texture!.size())
         
-        // assign phyics category to keep physics bodies separated
+        // Assigns phyics category to keep physics bodies separated
         // so the wheel can spin independently of the car body.
         reusableWheel.physicsBody?.categoryBitMask = WheelCategory
         reusableWheel.physicsBody?.contactTestBitMask = WheelCategory
@@ -205,7 +214,7 @@ class RandomCar: SKSpriteNode {
         
         returnCar.physicsBody = SKPhysicsBody(texture: returnCar.texture!, size: returnCar.texture!.size())
         
-        // assign phyics category to keep physics bodies separated
+        // Assigns phyics category to keep physics bodies separated
         // so the wheel can spin independently of the car body.
         returnCar.physicsBody?.categoryBitMask = CarBodyCategory
         returnCar.physicsBody?.contactTestBitMask = CarBodyCategory
@@ -240,7 +249,7 @@ class RandomCar: SKSpriteNode {
         
         backWheel.physicsBody = SKPhysicsBody(texture: backWheel.texture!, size: backWheel.texture!.size())
         
-        // assign phyics category to keep physics bodies separated
+        // Assigns phyics category to keep physics bodies separated
         // so the wheel can spin independently of the car body.
         backWheel.physicsBody?.categoryBitMask = WheelCategory
         backWheel.physicsBody?.contactTestBitMask = WheelCategory
@@ -271,7 +280,7 @@ class RandomCar: SKSpriteNode {
         
         frontWheel.physicsBody = SKPhysicsBody(texture: frontWheel.texture!, size: frontWheel.texture!.size())
         
-        // assign phyics category to keep physics bodies separated
+        // Assigns phyics category to keep physics bodies separated
         // so the wheel can spin independently of the car body.
         frontWheel.physicsBody?.categoryBitMask = WheelCategory
         frontWheel.physicsBody?.contactTestBitMask = WheelCategory
@@ -298,4 +307,3 @@ class RandomCar: SKSpriteNode {
 
 
 //TODO: Set a random toruqe on wheel
-//TODO: Add negative ranges to height and width positions of spokes

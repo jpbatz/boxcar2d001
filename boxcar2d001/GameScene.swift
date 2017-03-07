@@ -104,7 +104,11 @@ class GameScene: SKScene {
     
     func swapNewRandomCar() {
         
+        carBody.removeFromParent()
+        
         carBody = randomCar.createRandomCarBody()
+        
+        world!.addChild(carBody)
     }
     
     
@@ -219,23 +223,17 @@ class GameScene: SKScene {
         if (self.lastUpdateTime == 0) {
             self.lastUpdateTime = currentTime
         }
-        
         // Calculate time since last update
         let dt = currentTime - self.lastUpdateTime
-        
         // Update entities
         for entity in self.entities {
             entity.update(deltaTime: dt)
         }
-        
         self.lastUpdateTime = currentTime
         
-        //backWheel.physicsBody?.applyTorque(-1.1) // Acceleration code
+        // Keeps the camera on the carBody
         
-        //TODO: Update so restart button does not crash system Y
         centerOnNode(node: carBody) // makes camera follow the position of the car.
-
-        
         
         // reset game if car is at rest
 
@@ -287,11 +285,31 @@ class GameScene: SKScene {
                         
                         print("you touched the restart button")
                         
-                        //swapNewRandomCar()
+                        swapNewRandomCar()
                         
                     } else {
                         
                         print("you touched the gas button")
+                        
+                        
+                        
+                        
+                        // Get the wheel
+                        
+                        // list out all the children of this parent
+                        
+//                        print(carBody.children)
+                        
+                        //TODO: Get the children of the carBody
+                        // get the children of those spokes
+                        // pick one of those spokes
+                        // apply torque to that wheel
+                        
+                        // make the wheel spin
+                        
+//                        let wheelWithTorque = carBody.childNode(withName: "wheel")
+//                        
+//                        wheelWithTorque!.physicsBody?.applyTorque(-1.1) // Acceleration code
                     }
                 }
             }
