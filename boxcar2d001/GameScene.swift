@@ -289,27 +289,24 @@ class GameScene: SKScene {
                         
                     } else {
                         
-                        print("you touched the gas button")
                         
                         
-                        
-                        
-                        // Get the wheel
-                        
-                        // list out all the children of this parent
-                        
-//                        print(carBody.children)
-                        
-                        //TODO: Get the children of the carBody
-                        // get the children of those spokes
-                        // pick one of those spokes
-                        // apply torque to that wheel
-                        
-                        // make the wheel spin
-                        
-//                        let wheelWithTorque = carBody.childNode(withName: "wheel")
-//                        
-//                        wheelWithTorque!.physicsBody?.applyTorque(-1.1) // Acceleration code
+                        for iteratedChild in carBody.children {
+                            
+                            for iteratedGrandChild in iteratedChild.children {
+                                
+                                guard let iteratedName = iteratedGrandChild.name else { return }
+                                
+                                print(iteratedName)
+                                
+                                if iteratedName == "wheel" {
+                                    
+                                    iteratedGrandChild.physicsBody?.applyTorque(-1.1)
+                                    
+                                    print("you gassed the wheels")
+                                }
+                            }
+                        }
                     }
                 }
             }

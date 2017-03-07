@@ -93,7 +93,7 @@ class RandomCar: SKSpriteNode {
         
         returnCar = SKSpriteNode(imageNamed: "carBodyRandomPoint")
         
-        returnCar.position = CGPoint(x: 0, y: 400)
+        returnCar.position = CGPoint(x: 0, y: 600)
         
         returnCar.physicsBody = SKPhysicsBody(texture: returnCar.texture!, size: returnCar.texture!.size())
         
@@ -112,6 +112,10 @@ class RandomCar: SKSpriteNode {
         returnCar.physicsBody?.friction = 0.5
         
         returnCar.zRotation = CGFloat.pi / 2.7
+        
+        // Add spoke if spoke is at index
+        // Create initializing flag that is set to 1 and prevents execution if called.
+        var hasWheelWithTorque = false
         
         for index in 1...MAX_NUMBER_OF_SPOKES {
             
@@ -141,20 +145,18 @@ class RandomCar: SKSpriteNode {
             
             spokePoint.position = CGPoint(x: widths[index], y: heights[index])
             
-            
-            // Add spoke if spoke is at index
-            // Create initializing flag that is set to 1 and prevents execution if called.
-            var hasWheelWithTorque = false
-            
             if spokesWithWheels.contains(index) {
                 
                 if hasWheelWithTorque == false {
+                    
                     hasWheelWithTorque = true
-                    // apply torque to wheel
+                    
+                    addWheelToSpoke(inputSpoke: spokePoint, withTorque: true)
+                    
+                } else {
+                    
+                    addWheelToSpoke(inputSpoke: spokePoint, withTorque: false)
                 }
-                
-                // add a wheel to this spoke
-                addWheelToSpoke(inputSpoke: spokePoint)
             }
             
             returnCar.addChild(spokePoint)
@@ -163,9 +165,16 @@ class RandomCar: SKSpriteNode {
         return returnCar
     }
     
-    func addWheelToSpoke(inputSpoke: SKSpriteNode) {
+    func addWheelToSpoke(inputSpoke: SKSpriteNode, withTorque: Bool) {
         
-        reusableWheel.name = "wheel"
+        if withTorque {
+            
+            reusableWheel.name = "wheelWithTorque"
+            
+        } else {
+            
+            reusableWheel.name = "wheel"
+        }
         
         reusableWheel = SKSpriteNode(imageNamed: "tire")
         
